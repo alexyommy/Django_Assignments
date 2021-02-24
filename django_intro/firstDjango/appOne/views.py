@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
 def index(request):
-    return HttpResponse("placeholder to later display a list of all blogs!")
+    return render(request, "index.html")
 
 def new(request):
     return HttpResponse("placeholder to display a new form to create a new blog")
@@ -16,6 +16,13 @@ def edit(request, number):
 
 def destroy(request, number):
     return redirect("/")
+
+def hello_name(request, name):
+    context = {
+        "htmlname": name,
+        "namelist": ["Alex", "Albert", "Ryan"]
+    }
+    return render(request, "helloname.html", context)
 
 # Create your views here.
 def one_method(request):                # no values passed via URL
