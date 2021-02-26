@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dojo Survey</title>
+    {% load static %}
+    <link rel="stylesheet" href='{% static "css/style.css" %}'>
+</head>
+<body>
+    <p>Dojo Survey</p>
+    <form action="/result" method="post">
+        {% csrf_token %}
+        <p>Name: <input name="name" type="text"></p>
+        
+        <input type="radio" id="choice1" name="occupation" value="Student">
+        <label for="occupation"> I am a student.</label><br>
+        <input type="radio" id="choice2" name="occupation" value="Professor">
+        <label for="occupation"> I am a professor</label><br>
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
+
