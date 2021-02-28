@@ -12,9 +12,13 @@ def result(request):
     context = {
         "name": request.POST["name"],
         "occupation": request.POST["occupation"],
+        "locations": request.POST["locations"],
+        "languages": request.POST["languages"],
+        "comments": request.POST["comments"],
         "prev_name": request.session["prev_name"],
     }
     request.session["prev_name"] = request.POST["name"]
     return render(request, "result.html", context)
+
 
 

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,19 +9,42 @@
     {% load static %}
     <link rel="stylesheet" href='{% static "css/style.css" %}'>
 </head>
+
 <body>
     <p>Dojo Survey</p>
     <form action="/result" method="post">
         {% csrf_token %}
         <p>Name: <input name="name" type="text"></p>
-        
+        <p>Occupation:</p>
         <input type="radio" id="choice1" name="occupation" value="Student">
         <label for="occupation"> I am a student.</label><br>
         <input type="radio" id="choice2" name="occupation" value="Professor">
         <label for="occupation"> I am a professor</label><br>
 
+        <p>Dojo Location:</p>
+        <select name="locations" id="locations">
+            <option value="San Jose">San Jose</option>
+            <option value="San Francisco">San Francisco</option>
+            <option value="Seattle">Seattle</option>
+            <option value="Washington DC">Washington D.C.</option>
+        </select>
+
+        <p>Favorite Language:</p>
+        <select name="languages" id="languages">
+            <option value="HTML">HTML</option>
+            <option value="Python">Python</option>
+            <option value="JavaScript">JavaScript</option>
+            <option value="Java">Java</option>
+        </select>
+
+        <p>Comment (optional):</p>
+        <textarea name="comments" id="comments" cols="30" rows="10">
+            Insert Field
+        </textarea>
+
+
         <button type="submit">Submit</button>
     </form>
 </body>
-</html>
 
+</html>
