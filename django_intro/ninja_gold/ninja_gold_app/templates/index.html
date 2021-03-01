@@ -10,42 +10,60 @@
 </head>
 <body>
     <h1>Ninja Gold</h1>
-    <p>Gold Amount: {{request.session.gold}}</p>
+    <p>Gold Amount: {{request.session.total_gold}}</p>
     <fieldset style="width: 25%;">
         <legend>Farm</legend>
         <form action="/process_money" method="POST">
             {% csrf_token %}
-            <input type="hidden" id="building" name="building" value="farm">
+            <input type="hidden" id="building" name="building" value="farm" />
             <p>(earns 10-20 golds)</p>
-            <button type="submit" name="building" value="farm">Find Gold!</button>
+            <button type="submit">Find Gold!</button>
         </form>
     </fieldset>
     <fieldset style="width: 25%;">
         <legend>Cave</legend>
         <form action="/process_money" method="POST">
             {% csrf_token %}
-            <input type="hidden" id="building" name="building" value="cave">
+            <input type="hidden" id="building" name="building" value="cave" />
             <p>(earns 5-10 golds)</p>
-            <button type="submit" name="building" value="cave">Find Gold!</button>
+            <button type="submit">Find Gold!</button>
         </form>
     </fieldset>
     <fieldset style="width: 25%;">
         <legend>House</legend>
         <form action="/process_money" method="POST">
             {% csrf_token %}
-            <input type="hidden" id="building" name="building" value="house">
+            <input type="hidden" id="building" name="building" value="house" />
             <p>(earns 2-5 golds)</p>
-            <button type="submit" name="building" value="house">Find Gold!</button>
+            <button type="submit">Find Gold!</button>
         </form>
     </fieldset>
     <fieldset style="width: 25%;">
         <legend>Casino</legend>
         <form action="/process_money" method="POST">
             {% csrf_token %}
-            <input type="hidden" id="building" name="building" value="casino">
+            <input type="hidden" id="building" name="building" value="casino" />
             <p>(earns/takes 0-50 golds)</p>
-            <button type="submit" name="building" value="casino">Find Gold!</button>
+            <button type="submit">Find Gold!</button>
         </form>
     </fieldset>
+    <fieldset>
+        <form action="/reset" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="Play Again">
+        </form>
+    </fieldset>
+
+    <fieldset>
+        <h2>Activities</h2>
+        <div id="activities">
+            {% for activity in request.session.activities reversed %}
+                <p class="{{activity.result}}">{{ activity.message }}</p>
+            {% endfor %}
+        </div>
+    </fieldset>
+    
+
+
 </body>
 </html>
