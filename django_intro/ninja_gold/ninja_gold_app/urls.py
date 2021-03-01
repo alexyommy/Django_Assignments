@@ -1,4 +1,4 @@
-"""random_word_generator URL Configuration
+"""ninja_gold URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.2/topics/http/urls/
@@ -17,7 +17,6 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.rand_word),
-    path('random_word', views.rand_word),
-    path('reset', views.reset)
+    path('', views.index),
+    path('process_money', views.process_money)
 ]

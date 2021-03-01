@@ -4,12 +4,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Word Generator</title>
+    <title>Random Word</title>
     {% load static %}
     <link rel="stylesheet" href='{% static "css/style.css" %}'>
 </head>
 <body>
-    <h1>Random Word (attempt # {{attempt_number}})</h1>
-    
+    <h2>Radom Word (Attempt #{{request.session.count}})</h2>
+    <h1>{{request.session.word}}</h1>
+    <button>
+        <a href="/random_word">Generate</a>
+    </button>
+    <button>
+        <a href="/reset">Reset Count</a>
+    </button>
 </body>
 </html>
