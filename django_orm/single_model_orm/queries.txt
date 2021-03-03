@@ -1,0 +1,41 @@
+python manage.py makemigrations
+
+python manage.py migrate
+
+python manage.py shell
+
+from users_app.models import *
+
+Users.objects.all()
+
+Users.objects.create(first_name = "Alex", last_name = "Yom", email_address = "alexyom24@gmail.com", age=24)
+
+Users.objects.create(first_name = "Albert", last_name = "Kim", email_address = "akim@gmail.com", age=26)
+
+Users.objects.create(first_name = "Ryan", last_name = "Lee", email_address = "rlee@gmail.com", age=23)
+
+Retrieve all the users:
+Users.objects.all()
+
+Retrieve the last user:
+Users.objects.last()
+
+Retrieve the first user:
+Users.objects.first()
+
+Change the user with id=3 so their last name is Pancakes
+a = Users.objects.get(id=3)
+a.last_name = "Pancakes"
+a.save()
+
+Delete the user with id=2 from the database
+b = Users.objects.get(id=2)
+b.delete()
+
+Get all the users, sorted by their first name
+Users.objects.all().order_by("first_name")
+Users.objects.all().values()
+
+Get all the users, sorted by their first name in descending order
+Users.objects.all().order_by("-first_name")
+Users.objects.all().values()

@@ -22,6 +22,7 @@ def process_money(request):
         return redirect('/')
     building_name = request.POST['building']
     building = Gold_Dict[building_name]
+    # .upper() puts text in UPPERCASAE
     building_name_upper = building_name[0].upper() + building_name[1:]
     curr_gold = random.randint(building[0], building[1])
     formatted_time = datetime.now().strftime("%m/%d/%Y %I:%M%p")
@@ -37,3 +38,4 @@ def process_money(request):
 def reset(request):
     request.session.clear()
     return redirect('/')
+
