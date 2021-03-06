@@ -8,6 +8,29 @@
     {% load static %}
 </head>
 <body>
-    
+    <h1>All the Users</h1>
+    {% for user in all_the_users %}
+    <ul>
+        <li>{{ user.id }}</li>
+        <li>{{ user.first_name }}</li>
+        <li>{{ user.last_name }}</li>
+        <li>{{ user.email_address }}</li>
+        <li>{{ user.age }}</li>
+    </ul>
+    {% endfor %}
+    <h1>Add a User</h1>
+    <form action="/add_user" method="post">
+        {% csrf_token %}
+        <p>First Name: <input name="first_name" type="text"></p>
+        <p>Last Name: <input name="last_name" type="text"></p>
+        <p>Email: <input name="email_address" type="text"></p>
+        <p>Age: <input name="age" type="text"></p>
+        <button type="submit">Add User</button>
+    </form>
+    <!-- <form action=""></form> -->
 </body>
 </html>
+
+    
+
+
