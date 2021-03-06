@@ -16,3 +16,5 @@ def add_user(request):
         age= request.POST['age'],
     )
     return redirect("/")
+
+
