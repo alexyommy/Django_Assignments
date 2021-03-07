@@ -4,9 +4,44 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Dojos & Ninjas</title>
+    {% load static %}
 </head>
 <body>
-    <h1>Yessirrrrrr</h1>
+    <div class="add" style="width: 50%">
+        <h1>Add a dojo</h1>
+        <form action="/add_dojo" method="post">
+            {% csrf_token %}
+            <p>Name: <input name="name" type="text" id="name"></p>
+            <p>City: <input name="city" type="text" id="city"></p>
+            <p>State: <input name="state" type="state" id="state"></p>
+            <button type="submit">Add Dojo</button>
+        </form>
+    </div>
+    <div class="add" style="width: 50%">
+        <h1>Add a ninja</h1>
+        <form action="/add_ninja" method="post">
+            {% csrf_token %}
+            <p>First Name: <input name="first_name" type="text" id="first_name"></p>
+            <p>Last Name: <input name="last_name" type="text" id="last_name"></p>
+            <select name="dojo" id="dojo">
+            {% for dojo in dojos%}
+                <option value="{{ dojo.id }}">{{ dojo.name }} </option>
+            {% endfor %}
+            </select>
+            <button type="submit">Add User</button>
+        </form>
+    </div>
+    <div class="all" style="text-align: center;">
+        <h1>All the Dojos</h1>
+        {% for dojo in dojos %}
+            <h2>Ninjas at the {{ dojo.name }}</h2>
+            <ul>
+            {% for ninja in dojo.ninjas.all %}
+                <li>{{ Ninja.first_name}} {{ Ninja.last_name}}</li>
+            {% endfor %}
+            </ul>
+        {% endfor %}
+    </div>
 </body>
 </html>
