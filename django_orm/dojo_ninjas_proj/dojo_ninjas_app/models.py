@@ -7,7 +7,7 @@ class Dojo (models.Model):
     state = models.CharField(max_length=2)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    desc = models.TextField(default="old do")
+    desc = models.TextField(default="old dojo")
 
 class Ninja (models.Model):
     first_name = models.CharField(max_length=255)
@@ -15,4 +15,7 @@ class Ninja (models.Model):
     dojo = models.ForeignKey(Dojo, related_name='ninjas', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+
+
 

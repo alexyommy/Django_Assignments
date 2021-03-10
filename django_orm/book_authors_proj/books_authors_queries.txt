@@ -1,0 +1,56 @@
+Create 5 books with the following names: C Sharp, Java, Python, PHP, Ruby
+book1 = book.objects.create(title = "C Sharp", desc = "a book about C Sharp")
+book2 = book.objects.create(title = "Java", desc = "a book about Java")
+book3 = book.objects.create(title = "Python", desc = "a book about Python")
+book4 = book.objects.create(title = "PHP", desc = "a book about PHP")
+book5 = book.objects.create(title = "Ruby", desc = "a book about Ruby")
+
+Create 5 different authors: Jane Austen, Emily Dickinson, Fyodor Dostoevsky, William Shakespeare, Lau Tzu
+author1 = author.objects.create(first_name = "Jane", last_name = "Austen")
+author2 = author.objects.create(first_name = "Emily", last_name = "Dickinson")
+author3 = author.objects.create(first_name = "Fyodor", last_name = "Dostoevsky")
+author4 = author.objects.create(first_name = "William", last_name = "Shakespeare")
+author5 = author.objects.create(first_name = "Lau", last_name = "Tzu")
+
+Add a new text field in the authors table called 'notes'
+notes = models.TextField(default="N/A")
+
+Create and run the migration files to update the table in your database
+exit()
+python manage.py makemigrations
+python manage.py migrate
+
+Change the name of C Sharp book to C#
+book1.title = "C#"
+book1.save()
+
+Change the first name of the 4th author to Bill
+author4.first_name = "Bill"
+
+Assign the first author to the first 2 books
+author1.books.add(book1, book2)
+
+Assign the second author to the first 3 books
+author2.books.add(book1, book2, book3)
+
+Assign the third author to the first 4 books
+author3.books.add(book1, book2, book3, book4)
+
+Assign the fourth author to all the books
+author4.books.add(book1, book2, book3, book4, book5)
+
+Retrieve all the authors for the 3rd book
+book3.authors.all()
+
+Remove the first author of the 3rd book
+book3.authors.remove(author2)
+
+Add the 5th author as one of the authors of the 2nd book
+book2.authors.add(author5)
+
+Find all the books that the 3rd author is part of
+author3.books.all()
+
+Find all the authors that contributed to the 5th book
+book5.authors.all()
+

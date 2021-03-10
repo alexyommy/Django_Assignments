@@ -37,7 +37,7 @@
         {% for dojo in dojos %}
             <h2>Ninjas at the {{ dojo.name }}</h2>
             <ul>
-            {% for ninja in dojo.ninjas.all %}
+            {% for Ninja in dojo.ninjas.all %}
                 <li>{{ Ninja.first_name}} {{ Ninja.last_name}}</li>
             {% endfor %}
             </ul>
@@ -45,3 +45,6 @@
     </div>
 </body>
 </html>
+
+    
+    
