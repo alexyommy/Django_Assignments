@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Books</title>
+    <title>Authors</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -20,16 +20,20 @@
 <body>
     <div class="d-flex flex-row">
         <div class="card" style="width: 50%;">
-            <h1>Add a Book</h1>
-            <form action="books/create" method="post">
+            <h1>Add an Author</h1>
+            <form action="authors/create" method="post">
                 {% csrf_token%}
                 <div class="form-group">
-                    <label for="title">Title</label>
-                    <input type="text" id="title" name="title" class="form_control">
+                    <label for="first_name">First Name</label>
+                    <input type="text" id="first_name" name="first_name" class="form_control">
                 </div>
                 <div class="form-group">
-                    <label for="desc">Description</label>
-                    <input type="text" id="desc" name="desc" class="form_control">
+                    <label for="last_name">Last Name</label>
+                    <input type="text" id="last_name" name="last_name" class="form_control">
+                </div>
+                <div class="form-group">
+                    <label for="notes">Notes</label>
+                    <input type="text" id="notes" name="notes" class="form_control">
                 </div>
                 <button type="submit" class="btn btn-primary">Add</button>
             </form>
@@ -39,16 +43,16 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Title</th>
+                        <th>Name</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                {% for book in books%}
+                {% for author in authors%}
                     <tr>
-                        <td>{{ book.id }}</td>
-                        <td>{{ book.title }}</td>
-                        <td><a href="/book/{{ book.id }}">View</a></td>
+                        <td>{{ author.id }}</td>
+                        <td>{{ author.first_name }} {{ author.last_name}}</td>
+                        <td><a href="/author/{{ author.id }}">View</a></td>
                     </tr>
                 {% endfor %}
                 </tbody>

@@ -4,56 +4,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Books & Authors</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- load Bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    {% load static %}
+    {% load static%}
+    <title>Books/Authors</title>
 </head>
 <body>
-    <div class="d-flex flex-row">
-        <div class="card" style="width: 50%;">
-            <h1>Add a Book</h1>
-            <form action="/add_book" method="post">
-                {% csrf_token%}
-                <div class="form-group">
-                    <label for="title">Title</label>
-                    <input type="text" id="title" name="title" class="form_control">
-                </div>
-                <div class="form-group">
-                    <label for="desc">Description</label>
-                    <input type="text" id="desc" name="desc" class="form_control">
-                </div>
-                <button type="submit" class="btn btn-primary">Add</button>
-            </form>
-        </div>
-        <div class="card" style="width: 50%">
-            <table class="table table-dark">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Title</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {% for book in books%}
-                    <tr>
-                        <td>{{ book.id }}</td>
-                        <td>{{ book.title }}</td>
-                        <td><a href="books/{{ book.id }}">View</a></td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table> 
-        </div>
+    <nav>
+        <h1>Books & Authors</h1>
+        <a href="/books">Books</a>
+        <a href="/authors">Authors</a>
+    </nav>
+    <div class="container">
+        {% block content %}
+        {% endblock %}
     </div>
 </body>
 </html>
