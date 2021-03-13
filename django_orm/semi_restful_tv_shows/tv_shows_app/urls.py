@@ -19,12 +19,15 @@ from . import views
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
+    # localhost: 8000/shows
     path('', views.index),
-    path('shows', views.index),
-    path('shows/new', views.new),
-    path('shows/create', views.create),
-    path('shows/<int:show_id>', views.show_page),
-    path('shows/<int:show_id>/delete', views.delete),
-    path('shows/<int:show_id>/edit', views.edit),
-    path('shows/<int:show_id>/update', views.update)
+    # localhost: 8000/shows/new
+    path('new', views.new),
+    path('create', views.create),
+    # localhost: 8000/shows/<show_id>
+    path('<int:show_id>', views.show_page),
+    path('<int:show_id>/delete', views.delete),
+    # localhost: 8000/shows/<show_id>/edit
+    path('<int:show_id>/edit', views.edit),
+    path('<int:show_id>/update', views.update)
 ]
