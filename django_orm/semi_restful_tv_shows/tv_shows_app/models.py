@@ -1,15 +1,22 @@
 from django.db import models
+from time import strftime
+from datetime import datetime
 
 # Create your models here.
 class showManager(models.Manager):
-    def basic_validator(self, postData):
+    def validate(self, form):
         errors = {}
-        if len(postData['title']) < 2:
-            errors["title"] = "Show title should be at least 2 charcters"
-        if len(postData['network']) < 3:
-            errors["network"] = "Show network should be at least 3 charcters"
-        if len(postData['desc']) < 10:
-            errors["desc"] = "Show description should be at least 10 characters"
+
+        if len(form['title']) < 2:
+            errors['title'] = "Show title should be at least 2 characters"
+        if len(form['network']) < 3:
+            errors['network'] = "Show network should be at least 3 characters"
+        if len(form['desc']) < 10:
+            errors['desc'] = "Description should be at least 10 characters"
+        if len(form['release_date']) == 0:
+            errors['release_date'] = "Date must be entered"
+        elif datetime.strptime(form['release_date'], '%Y-%m-%d') > datetime.now():
+            errors['release_date'] = "Release Date should be in the past"
         return errors
 
 class show(models.Model):

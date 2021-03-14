@@ -25,7 +25,7 @@
             {% endfor %}
         </ul>
         {% endif %}
-        <form action="/shows/{{show.id}}/update" method="post">
+        <form action="/shows/{{show.id}}/update" method="POST">
             {% csrf_token %}
             <div class="form-group">
                 <label for="title">Title</label>
