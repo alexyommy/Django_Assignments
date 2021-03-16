@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Book And Review</title>
+</head>
+<body>
+    <header>
+        <a href='/books'>Home</a>
+        <a href='/logout'>Logout</a>
+    </header>
+    <div>
+        <h2>Add a New Book Title and a Review</h2>
+        <ul class="messages">
+        {% for message in messages %}
+            <li>{{message}}</li>
+        {% endfor %}
+        </ul>
+        <form action='/books/create' method="POST">
+            {% csrf_token %}
+            <label for='title'>Book Title:</label>
+            <input type='text' name='title'>
+            <p>Author:</p>
+            <label for='author_dropdown'>Choose from the list:</label>
+            <select name='author_dropdown'>
+                <option value='-1'>Add author below or select from list</option>
+                {% for author in authors %}
+                <option value='{{author.id}}'>{{author.name}}</option>
+                {% endfor %}
+            </select><br>
+            <label for='author_name'>Or add a new author:</label>
+            <input type='text' name='author_name'><br>
+            <label for='review'>Review:</label>
+            <textarea name='review' rows='4' cols='50'></textarea><br>
+            <label for='rating'>Rating:</label>
+            <select name='rating'>
+                <option value='1'>1</option>
+                <option value='2'>2</option>
+                <option value='3'>3</option>
+                <option value='4'>4</option>
+                <option value='5'>5</option>
+            </select><br>
+
+            <input type='submit' value='Add Book and Review'>
+        </form>
+    </div>
+</body>
+</html>
+Files
+https://github.com/alexyommy/Django_Assignments/tree/main/django_fullstack (Feb 08-Apr 02, 2021 Schedule)	Mar. 14, 2021	
+ No file chosen  or 
+Add Github Url
+Privacy PolicyTo
