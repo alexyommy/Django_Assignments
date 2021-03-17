@@ -1,36 +1,47 @@
 from django.db import models
 import re
+from datetime import datetime
+
+from django.db.models.fields import DateField
 # Create your models here.
 class UserManager(models.Manager):
     def validator(self, post_data):
         errors = {}
-        if len(post_data['first_name']) < 2:
-            errors['first_name'] = 'First name should be at least 2 characters.'
-        if len(post_data['last_name']) < 2:
-            errors['last_name'] = 'Last name should be at least 2 characters.'
+
+        ALPHA_REGEX = re.compile(r'^[a-zA-Z]+$')
         EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
-        if not EMAIL_REGEX.match(post_data['email']):        
-            errors['email'] = "Invalid email address."
-        if len(post_data['email']) > 245:
-            errors['email'] = 'Email address is too long.'
-        if len(post_data['password']) > 55:
-            errors['password'] = 'Password is too long. Must be less than 55 characters.'
+
+        if not ALPHA_REGEX.match(post_data['first_name']):
+            errors['first_name'] = "First name must only include alphabetical letters."
+        elif len(post_data['first_name']) < 2:
+            errors['name'] = 'First name is too short.'
+        if not ALPHA_REGEX.match(post_data['last_name']):
+            errors['last_name'] = "Last name must only include alphabetical letters."
+        elif len(post_data['last_name']) < 2:
+            errors['name'] = 'Last name is too short.'
+        if post_data['birthday'] == "":
+            errors['birthday'] = "Birthday must be populated"
+        elif post_data['birthday'] > datetime.now().strftime("%Y-%m-%d"):
+            errors['birthday'] = "Invalid Birthday, Must be in the past"
+        if not EMAIL_REGEX.match(post_data['email']):
+            errors['email'] = 'Email address provided is invalid'
         if len(post_data['password']) < 8:
             errors['password'] = 'Password must be at least 8 characters'
-        if post_data['password'] != post_data['confirm_password']:
-            errors['confirm_password'] = 'Passwords do not match.'
+        elif post_data['confirm_password'] != post_data['password']:
+            errors['confirm_password'] = 'Password provided must match.'
         try:
             user = User.objects.get(email = post_data['email'])
-            errors['email_in_use'] = 'This email is already associated with another account.'
+            errors['email_in_use'] = 'This email is already associated with an account.'
         except:
             pass
         return errors
 
 class User(models.Model):
-    first_name = models.CharField(max_length=245)
-    last_name = models.CharField(max_length=245)
-    email = models.CharField(max_length=245)
-    password = models.CharField(max_length=55)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    first_name = models.CharField(max_length = 245)
+    last_name = models.CharField(max_length = 245)
+    birthday = models.DateField()
+    email = models.CharField(max_length = 350)
+    password = models.CharField(max_length = 60)
+    created_at = models.DateTimeField(auto_now_add = True)
+    updated_at = models.DateTimeField(auto_now = True)
     objects = UserManager()
