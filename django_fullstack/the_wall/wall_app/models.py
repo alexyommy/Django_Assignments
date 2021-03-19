@@ -14,6 +14,7 @@ class Wall_Message(models.Model):
     message = models.TextField(max_length = 255)
     created_at = models.DateTimeField(auto_now_add = True)
     updated_at = models.DateTimeField(auto_now = True)
+    user_likes = models.ManyToManyField(User, related_name='liked_posts')
     objects = MessageManager()
 
 class CommentManager(models.Manager):

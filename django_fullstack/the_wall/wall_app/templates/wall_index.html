@@ -42,6 +42,8 @@
     <div class="card">
         {% for wall_message in wall_messages %}
             <h2>"{{ wall_message.message }}"</h2>
+            <a href="wall/like/{{ wall_message.id }}">Like</a>
+            <p>{{ wall_message.user_likes.count }}</p>
             <p>Posted by: <a href="wall/show_user/{{ wall_message.user.id }}">{{ wall_message.user.first_name }} {{ wall_message.user.last_name }}</a></p>
             <p>Created at: {{ wall_message.created_at }}</p>
             {% if wall_message.user.id == request.session.user_id %}

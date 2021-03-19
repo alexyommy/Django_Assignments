@@ -23,5 +23,6 @@ urlpatterns = [
     path('wall/post_comment/<int:wall_message_id>', views.post_comment),
     path('wall/delete_message/<int:wall_message_id>', views.delete_message),
     path('wall/delete_comment/<int:comment_id>', views.delete_comment),
-    path('wall/show_user/<int:profile_id>', views.show_user)
+    path('wall/show_user/<int:profile_id>', views.show_user),
+    path('wall/like/<int:wall_message_id>', views.add_like)
 ]

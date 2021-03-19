@@ -54,3 +54,9 @@ def show_user(request, profile_id):
         'user': User.objects.get(id=profile_id)
     }
     return render(request, "user_profile.html", context)
+
+def add_like(request, wall_message_id):
+    liked_message = Wall_Message.objects.get(id = wall_message_id)
+    user_liking = User.objects.get(id = request.session['user_id'])
+    liked_message.user_likes.add(user_liking)
+    return redirect('/wall')
