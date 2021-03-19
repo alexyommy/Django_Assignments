@@ -13,20 +13,15 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <title>Document</title>
+    <title>User Profile</title>
 </head>
 <body>
-    <div class="card" style="width: 50%;">
-        <h1>Success! Welcome, {{ user.first_name }}!</h1>
-        <ul class="messages">
-            {% for message in messages %}
-                <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li> 
-            {% endfor %}
-        </ul>
-        <form action="/user/logout" method="POST">
-            {% csrf_token %}
-            <button class="btn btn-success btn-sm">Log Off</button>
-        </form>
-    </div>
+    <h1>{{ user.first_name }} {{ user.last_name }}'s messages</h1>
+    <h2>{{ user.email }}</h2>
+    <h2>Messages</h2>
+    {% for wall_message in user.user_messages.all %}
+        <h3>"{{ wall_message.message }}"</h3>
+    {% endfor %}
+    <a href="/wall">Go to Wall</a>
 </body>
 </html>

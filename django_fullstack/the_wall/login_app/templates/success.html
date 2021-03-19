@@ -25,7 +25,8 @@
         </ul>
         <form action="/user/logout" method="POST">
             {% csrf_token %}
-            <button class="btn btn-success btn-sm">Log Off</button>
+            <a class="btn btn-primary btn-sm" href="/wall">Go to the Wall</a>
+            <button class="btn btn-danger btn-sm">Log Off</button>
         </form>
     </div>
 </body>

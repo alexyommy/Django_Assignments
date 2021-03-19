@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- load Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>The Wall</title>
+</head>
+<body>
+    <header class="d-flex justify-content-between">
+        <h1 class="justify-content-start">CodingDojo Wall</h1>
+        <h1 class="justify-content-center">Welcome,{{ request.session.user_first_name }}</h1>
+        <form action="/user/logout" method="POST" class="justify-content-end">
+            {% csrf_token %}
+            <a class="btn btn-primary btn-sm" href="/success">Go Home</a>
+            <button class="btn btn-danger btn-sm">Log Off</button>
+        </form>
+    </header>
+    <div class="card">
+        <form action='wall/post_message' method='POST'>
+            {% if messages %}
+            <ul class="messages">    
+                {% for message in messages %}    
+                <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% csrf_token %}
+            <textarea name="message" id="message" cols="30" rows="10"></textarea>
+            <button type="submit" class="btn btn-primary">Post Message</button>
+        </form>
+    </div>
+    <div class="card">
+        {% for wall_message in wall_messages %}
+            <h2>"{{ wall_message.message }}"</h2>
+            <p>Posted by: <a href="wall/show_user/{{ wall_message.user.id }}">{{ wall_message.user.first_name }} {{ wall_message.user.last_name }}</a></p>
+            <p>Created at: {{ wall_message.created_at }}</p>
+            {% if wall_message.user.id == request.session.user_id %}
+                <form action="wall/delete_message/{{ wall_message.id }}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary">Delete message</button>
+                </form>
+            {% endif %}
+            <p>Comments: </p>
+                {% for comment in wall_message.message_comments.all %}
+                    <h3>"{{ comment.comment }}"</h3>
+                    <p>Posted by: {{ comment.user.first_name }} {{ comment.user.last_name }}</p>
+                    <p>Created at: {{ comment.created_at }}</p>
+                    {% if comment.user.id == request.session.user_id %}
+                        <form action="wall/delete_comment/{{ comment.id }}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-primary">Delete comment</button>
+                        </form>
+                    {% endif %}
+                {% endfor %}
+            <form action="wall/post_comment/{{ wall_message.id }}" method="POST">
+                {% csrf_token %}
+                <textarea name="comment" id="comment" cols="30" rows="5"></textarea>
+                <button type="submit" class="btn btn-primary">Post Comment</button>
+            </form>
+        {% endfor %}
+    </div>
+</body>
+</html>
