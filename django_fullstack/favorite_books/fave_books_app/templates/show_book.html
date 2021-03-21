@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- load Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Favorite Books</title>
+</head>
+<body>
+    <header class="d-flex justify-content-between">
+        <h1 class="justify-content-start">Welcome,{{ request.session.user_first_name }}</h1>
+        <h1 class="justify-content-center">Favorite Books</h1>
+        <form action="/user/logout" method="POST" class="justify-content-end">
+            {% csrf_token %}
+            <a class="btn btn-primary btn-sm" href="/success">Go Home</a>
+            <button class="btn btn-danger btn-sm">Log Off</button>
+        </form>
+    </header>
+    <div class="card">
+        <h2>{{ book.title }}</h2>
+        <p>Added by: {{ book.creator.first_name }} {{ book.creator.last_name }}</p>
+        <p>Added on: {{ book.created_at }}</p>
+        <p>Last updated on: {{ book.updated_at }}</p>
+        <p>Description: {{ book.desc }}</p>
+        <p>
+            Update Description:
+            <form action='{{book.id}}/update' method="POST">
+                {% csrf_token %}
+                <textarea name='desc' id='desc' cols="30" rows="10"></textarea>
+                <button type="submit" class="btn btn-primary">Update</button>
+            </form>
+        </p>
+        <p>
+            <form action='{{book.id}}/delete' method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+            </form>
+        </p>
+    </div>
+    <div class="card">
+        <h2>Users Who Like This Book:</h2>
+        <ul>
+            {% for fav in book.favorited_by.all %}
+            <li>{{ fav.first_name }} {{ fav.last_name }}</li>
+            {% endfor %}
+        </ul>
+        {% if current_user in book.favorited_by.all %}
+        <a href='{{book.id}}/unfavorite' role="button" class="btn btn-danger">Remove from Favorites</a>
+        {% else %}
+        <a href='{{book.id}}/favorite' role="button" class="btn btn-warning">Add to Favorites</a>
+        {% endif %}
+    </div>
+</body>
+</html>
